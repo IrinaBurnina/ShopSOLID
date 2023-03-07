@@ -8,18 +8,17 @@ public class Main {
         welcomeShop();
         startShopping();
         welcomeShop();
-        ListOfProducts list = new ListOfProducts();
-        list.costFilter(12.00, 65.00);
-        list.ratingFilter();
-        list.wordFilter("САР");
-        list.wordFilter("Baby");
-
+        FunctionsByProducts function = new OperationsWithListProducts(); //SOLID-L-функ
+        function.costFilter(12.00, 65.00);
+        function.ratingFilter();
+        function.wordFilter("CAP");
+        function.wordFilter("Baby");
     }
 
 
     public static void welcomeShop() {
         System.out.println("*****Приветствуем дорогого покупателя в нашем магазине!*****\n");
-        ListOfProducts v = new ListOfProducts();
+        FunctionsByProducts v = new OperationsWithListProducts();
         v.printMenu();
     }
 
@@ -34,8 +33,8 @@ public class Main {
                 break;
             }
             final String[] inputRaw = input.split(" ");
-            int purchaseProduct = Integer.parseInt(inputRaw[0]);//Лот
-            int numberOfProduct = Integer.parseInt(inputRaw[1]);//кол-во
+            int purchaseProduct = Integer.parseInt(inputRaw[0]);
+            int numberOfProduct = Integer.parseInt(inputRaw[1]);
             productService.addProductToBasket(productService.getProductById(purchaseProduct), numberOfProduct);
         }
         System.out.println("ПРОСМОТР КОРЗИНЫ:");
@@ -43,23 +42,23 @@ public class Main {
         Order order = new Order(productService.productsInBasket);
         System.out.println("Желаете забрать заказ из магазина (введите S)  или воспользоваться доставкой (введите D)? ");
         String releaseOfGoods = scanner.nextLine();
-        if (releaseOfGoods == "S") {
+        if (releaseOfGoods.equals("S")) {
             System.out.println("Вы выбрали забрать заказ " + order.getOrderNumber() + " из магазина! Ваш чек: ");
             productService.printReceipt(productService.productsInBasket);
         } else {
             Delivery delivery = new Delivery(order);
             System.out.println("Введите адрес доставки: ");
             String address = scanner.nextLine();
-            System.out.println("Вы оформили заказ " + order.setOrderNumber() + " и доставку по адресу " + address);
+            System.out.println("Вы оформили заказ " + order.getOrderNumber() + " и доставку по адресу " + address);
             System.out.println("Трек-номер для отслеживания доставки заказа: " + delivery.getTrackNumber());
             //УЗНАТЬ СТАДИЮ ДОСТАВКИ
-            System.out.println("Чтобы узнать стадию доставки, введите трек-номер");
-            delivery.getDeliveryStage(scanner.nextLine());
+            System.out.println("Чтобы узнать стадию доставки, потребуется трек-номер");
+            delivery.getDeliveryStage(delivery.getTrackNumber());
             //Заказ изменил стадию доставки
             delivery.stage1 = "Выполнено";
             delivery.stage2 = "Выполнено";
             //Текущая стадия доставки стала
-            delivery.getDeliveryStage(scanner.nextLine());
+            delivery.getDeliveryStage(delivery.getTrackNumber());
         }
     }
 

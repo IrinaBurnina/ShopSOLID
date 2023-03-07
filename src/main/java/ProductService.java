@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductService {
-    //public int maxRating;
 
     public static Map<Product, Integer> productsInBasket = new HashMap<>();
 
@@ -43,10 +42,10 @@ public class ProductService {
         return null;
     }
 
-    public static void printReceipt(Map<Product, Integer> products) {    //тоже в сервис?
-        StringBuilder sb = new StringBuilder();
-        sb.append("******* ИТОГО к покупке: *********");
+    public static void printReceipt(Map<Product, Integer> products) {
+        System.out.println("******* ИТОГО к покупке: *********");
         printListOfProducts(products);
+        StringBuilder sb = new StringBuilder();
         sb.append("********************");
         sb.append("СПАСИБО за покупку!");
         System.out.println(sb);
@@ -54,7 +53,4 @@ public class ProductService {
 
     public void recommendations() {
     }
-
-    ;
-
 }

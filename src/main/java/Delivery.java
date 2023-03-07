@@ -6,13 +6,12 @@ public class Delivery {
     protected String stage1 = null;
     protected String stage2 = null;
     protected String stage3 = null;
+    private String trackNumber;
 
     public Delivery(Order order) {
         Random random = new Random();
         trackNumber = order.getOrderNumber() + " - " + random.nextInt(trackNumberLength);
     }
-
-    private String trackNumber;
 
     public String getTrackNumber() {
         return trackNumber;
@@ -22,8 +21,9 @@ public class Delivery {
     public void getDeliveryStage(String trackNumber) {
         System.out.println("Введите трек-номер для просмотра стадии заказа в системе доставки");
         Scanner scanner = new Scanner(System.in);
-        while (!scanner.nextLine().equalsIgnoreCase("end"))
-            if (trackNumber.equalsIgnoreCase(scanner.nextLine())) {
+        String trackNo = scanner.nextLine();
+        while (!trackNo.equals("end"))
+            if (trackNumber.equalsIgnoreCase(trackNo)) {
                 if (stage1 == null && stage2 == null && stage3 == null) {
                     stage1 = "Заказ готов к отправке.";
                     System.out.println(stage1);
@@ -40,8 +40,8 @@ public class Delivery {
             } else {
                 System.out.println("Проверьте правильность ввода трек-номера! Или прекратите ввод (end)");
             }
-        System.out.println(stage1);
     }
-
 }
+
+
 
